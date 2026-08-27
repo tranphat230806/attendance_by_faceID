@@ -7,6 +7,14 @@ from fastapi import FastAPI
 from datetime import datetime, timedelta, time as time_type
 from contextlib import asynccontextmanager
 from api.routes import users # Import router users
+print("🔥 ĐANG CHẠY FILE MAIN.PY")
+print("FILE:", __file__)
+
+import cv2
+
+print("CV2 PATH:", cv2.__file__)
+print("CV2 VERSION:", cv2.__version__)
+print("HAS IMDECODE:", hasattr(cv2, "imdecode"))
 
 # Đăng ký router với prefix chuẩn /api/users
 # 1. Khởi tạo app FastAPI TRƯỚC

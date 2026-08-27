@@ -105,8 +105,7 @@
             background: #0f172a;
         }
 
-        video,
-        canvas {
+        video, canvas {
             width: 100%;
             height: 240px;
             object-fit: cover;
@@ -145,8 +144,7 @@
             color: var(--text-main);
         }
 
-        input[type="text"],
-        input[type="file"] {
+        input[type="text"], input[type="file"] {
             width: 100%;
             padding: 10px 12px;
             border: 1px solid var(--border);
@@ -177,30 +175,12 @@
             background-color: var(--primary);
         }
 
-        .btn:hover {
-            background-color: var(--primary-hover);
-        }
-
-        .btn-success {
-            background-color: var(--success);
-        }
-
-        .btn-success:hover {
-            background-color: var(--success-hover);
-        }
-
-        .btn-info {
-            background-color: var(--info);
-        }
-
-        .btn-info:hover {
-            background-color: var(--info-hover);
-        }
-
-        .btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
+        .btn:hover { background-color: var(--primary-hover); }
+        .btn-success { background-color: var(--success); }
+        .btn-success:hover { background-color: var(--success-hover); }
+        .btn-info { background-color: var(--info); }
+        .btn-info:hover { background-color: var(--info-hover); }
+        .btn:disabled { opacity: 0.6; cursor: not-allowed; }
 
         .divider {
             margin: 20px 0;
@@ -242,8 +222,7 @@
             font-size: 0.88rem;
         }
 
-        th,
-        td {
+        th, td {
             padding: 10px 12px;
             text-align: left;
             border-bottom: 1px solid var(--border);
@@ -257,9 +236,7 @@
             top: 0;
         }
 
-        tr:last-child td {
-            border-bottom: none;
-        }
+        tr:last-child td { border-bottom: none; }
 
         .badge {
             padding: 3px 8px;
@@ -324,7 +301,7 @@
                     <i class="fa-solid fa-clock"></i>
                     <h2>Điểm Danh & Import</h2>
                 </div>
-
+                
                 <button id="btn_att" class="btn" onclick="startCapture('attendance')">
                     <i class="fa-solid fa-expand"></i> Chụp & Điểm Danh
                 </button>
@@ -375,7 +352,7 @@
     </div>
 
     <script>
-        const API_BASE = "https://understanding-tomatoes-encouraging-authorization.trycloudflare.com/api";
+        const API_BASE = "http://127.0.0.1:8000/api";
         const video = document.getElementById('webcam');
         const canvas = document.getElementById('canvas');
         const countdownEl = document.getElementById('countdown');
@@ -387,20 +364,11 @@
 
         // 2. Chụp ảnh Base64
         function captureBase64() {
-            if (!video.videoWidth || !video.videoHeight) {
-                throw new Error("Camera chưa sẵn sàng. Vui lòng chờ camera hiển thị rồi thử lại.");
-            }
-
             canvas.width = video.videoWidth;
             canvas.height = video.videoHeight;
-
             const ctx = canvas.getContext('2d');
             ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-
-            const dataUrl = canvas.toDataURL('image/jpeg', 0.9);
-
-            return dataUrl.split(',')[1];
-
+            return canvas.toDataURL('image/jpeg', 0.9);
         }
 
         // 3. Đếm ngược 3 giây trước khi bấm chụp
