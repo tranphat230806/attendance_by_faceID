@@ -1,5 +1,98 @@
-source/
-venv/
+# =========================
+# Python
+# =========================
+
 __pycache__/
-*.pyc
+*.py[cod]
+*$py.class
+
+# Compiled Python
+*.so
+
+# =========================
+# Virtual environments
+# =========================
+
+.venv/
+venv/
+env/
+ENV/
+.ENV/
+
+# =========================
+# Environment variables
+# =========================
+
 .env
+.env.*
+.env.example
+
+# =========================
+# IDE / Editor
+# =========================
+
+.vscode/
+.idea/
+
+# VS Code
+*.code-workspace
+
+# =========================
+# OS files
+# =========================
+
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# =========================
+# Testing / Coverage
+# =========================
+
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+
+# =========================
+# Type checking / Linters
+# =========================
+
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.ruff_cache/
+
+# =========================
+# Build / Distribution
+# =========================
+
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# =========================
+# Logs
+# =========================
+
+*.log
+logs/
+
+# =========================
+# Temporary files
+# =========================
+
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# =========================
+# Project specific
+# =========================
+
+source/
