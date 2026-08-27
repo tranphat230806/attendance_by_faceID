@@ -75,40 +75,6 @@ Leave `.env` as default. System will automatically fall back to SQLite if MySQL 
 
 ### 3. Initialize Database
 
-Tables will be created automatically on first run:
-
-```sql
-CREATE DATABASE IF NOT EXISTS attendance;
-USE attendance;
-
-CREATE TABLE users (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    position VARCHAR(100) NOT NULL,
-    face_encoding BLOB NOT NULL,
-    face_model VARCHAR(50) DEFAULT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    INDEX idx_name (name)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-CREATE TABLE attendance_logs (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT NOT NULL,
-    date DATE NOT NULL,
-    check_in DATETIME NULL,
-    check_out DATETIME NULL,
-    status ENUM('checked_in', 'checked_out', 'missing_checkout') NOT NULL,
-    check_in_liveness_score FLOAT NULL,
-    check_out_liveness_score FLOAT NULL,
-    check_in_face_score FLOAT NULL,
-    check_out_face_score FLOAT NULL,
-    CONSTRAINT fk_attendance_user
-        FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
-    UNIQUE KEY uq_user_date (user_id, date),
-    INDEX idx_date (date),
-    INDEX idx_user_date (user_id, date)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-```
 
 ## Running Tests
 
@@ -129,50 +95,6 @@ python tests/test_console.py
 7. **TEST 7**: Liveness + Face recognition pass (full flow)
 8. **TEST 8**: Concurrent check-in protection
 
-Expected output:
-```
-==================================================
- ATTENDANCE SYSTEM TEST SUITE
-==================================================
-
-[TEST 1] Employee check-in
-  [OK] Status: checked_in
-  [OK] User: Alice
-
-[TEST 2] Employee check-out same day
-  [OK] First: checked_in
-  [OK] Second: checked_out
-
-[TEST 3] Duplicate check-out rejection
-  [OK] Third attempt: already_checked_out
-  [OK] DB records: 1
-
-[TEST 4] Missing checkout detection
-  [OK] Day 1: missing_checkout
-  [OK] Day 2: checked_in
-
-[TEST 5] Liveness failure rejection
-  [OK] Status: liveness_failed
-  [OK] DB records: 0
-
-[TEST 6] Face recognition failure rejection
-  [OK] Status: face_not_detected
-  [OK] DB records: 0
-
-[TEST 7] Liveness + Face recognition pass
-  [OK] Status: checked_in
-  [OK] Liveness: 0.95
-  [OK] Face: 0.92
-
-[TEST 8] Concurrent check-in protection
-  [OK] First: checked_in
-  [OK] Second: checked_out
-  [OK] DB records: 1
-
---------------------------------------------------
-RESULT: 8/8 TESTS PASSED
---------------------------------------------------
-```
 
 ## Core Logic
 
